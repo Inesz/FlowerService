@@ -62,4 +62,10 @@ class DBTest {
         assertTrue(flowersSum > 0);
     }
 
+    @Test
+    void functionTest() {
+        Object result = entityManager.createNativeQuery("SELECT get_name(cast(1 as bigint))").getSingleResult();
+        assertEquals("fuchsia", result);
+    }
+
 }
