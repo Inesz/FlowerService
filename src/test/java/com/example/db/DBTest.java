@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.EntityManager;
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -66,6 +67,12 @@ class DBTest {
     void functionTest() {
         Object result = entityManager.createNativeQuery("SELECT get_name(cast(1 as bigint))").getSingleResult();
         assertEquals("fuchsia", result);
+    }
+
+    @Test
+    void triggerTest(){
+        Object result = entityManager.createNativeQuery("SELECT count(*) FROM flowers_history WHERE new_name LIKE 'tmp%' OR old_name LIKE 'tmp%'").getSingleResult();
+        assertEquals(new BigInteger("3"), result);
     }
 
 }

@@ -1,3 +1,26 @@
+CREATE OR REPLACE FUNCTION update_data()
+    RETURNS TRIGGER
+    language plpgsql
+AS
+'
+BEGIN
+IF (TG_OP = ''INSERT'') THEN
+INSERT INTO flowers_history(date, new_name, old_name) VALUES(now(), NEW.name, null);
+ELSIF (TG_OP = ''UPDATE'') THEN
+INSERT INTO flowers_history(date, new_name, old_name) VALUES(now(), NEW.name, OLD.name);
+ELSIF (TG_OP = ''DELETE'') THEN
+    INSERT INTO flowers_history(date, new_name, old_name)
+    VALUES (now(), null, OLD.name);
+END IF;
+return null;
+END;
+';
+
+CREATE TRIGGER update_flower_history AFTER INSERT OR UPDATE OR DELETE ON flowers FOR EACH ROW EXECUTE PROCEDURE update_data();
+INSERT INTO flowers (id, name, type) values (4, 'tmp1', 'tmp1');
+UPDATE flowers SET name = 'tmp2' where id=4;
+DELETE FROM flowers WHERE id = 4;
+
 INSERT INTO flowers (id, name, type) values (1, 'fuchsia', 'fuksja');
 INSERT INTO flowers (id, name, type) values (2, 'geranium', 'pelargonia');
 INSERT INTO flowers (id, name, type) values (3, 'mallow', 'malwa');
@@ -24,4 +47,4 @@ from flowers
 where id = flower_id;
 return Flower_name;
 End;
-'
+';
