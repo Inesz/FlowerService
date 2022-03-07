@@ -1,7 +1,7 @@
-package com.example.servis;
+package com.example.flower.service;
 
-import com.example.model.Flower;
-import com.example.repository.FlowerRepository;
+import com.example.flower.model.Flower;
+import com.example.flower.repository.FlowerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

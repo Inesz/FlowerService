@@ -1,7 +1,7 @@
-package com.example.controller;
+package com.example.flower.controller;
 
-import com.example.model.Flower;
-import com.example.servis.FlowerService;
+import com.example.flower.model.Flower;
+import com.example.flower.service.FlowerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

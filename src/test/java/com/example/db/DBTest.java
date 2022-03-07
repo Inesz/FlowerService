@@ -1,5 +1,7 @@
 package com.example.db;
 
+import com.example.flower.model.Flower;
+import com.example.flower.repository.FlowerRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,9 @@ import org.springframework.context.ApplicationContext;
 import javax.persistence.EntityManager;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DBTest {
@@ -20,6 +23,9 @@ class DBTest {
 
     @Autowired
     EntityManager entityManager;
+
+    @Autowired
+    FlowerRepository flowerRepository;
 
     @Test
     void printBeans() {
@@ -32,7 +38,7 @@ class DBTest {
 
     @Test
     void getFromDB() {
-        List result = entityManager.createNativeQuery("SELECT flower FROM flower").getResultList();
+        List result = entityManager.createNativeQuery("SELECT name FROM flowers").getResultList();
 
         Iterator it = result.iterator();
         while (it.hasNext()) {
@@ -40,6 +46,20 @@ class DBTest {
         }
 
         Assertions.assertNotNull(entityManager);
+    }
+
+    @Test
+    void getByJPA() {
+        List<Flower> flowers = flowerRepository.findAll();
+        flowers.forEach(f -> System.out.println(f.getItems().size()));
+        ListIterator<Flower> it = flowers.listIterator();
+        int flowersSum = 0;
+
+        while (it.hasNext()) {
+            flowersSum += it.next().getItems().size();
+        }
+
+        assertTrue(flowersSum > 0);
     }
 
 }

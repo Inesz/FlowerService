@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.Flower;
+import com.example.flower.model.Flower;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -33,7 +33,7 @@ class FlowerControllerTest {
     @Test
     @DisplayName("GET /flowers -> 200")
     @SneakyThrows
-    void findAllFlowers200(){
+    void findAllFlowers200() {
         String endpoint = "/flowers";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
@@ -44,7 +44,7 @@ class FlowerControllerTest {
     @Test
     @DisplayName("GET /flowers -> 3 out")
     @SneakyThrows
-    void checkInsertedFlowers3(){
+    void checkInsertedFlowers3() {
         String endpoint = "/flowers";
         var returnedListSize = 3;
 
@@ -54,14 +54,14 @@ class FlowerControllerTest {
 
         String flowers = resultActions.andReturn().getResponse().getContentAsString();
 
-        List<Flower> flowersFromJson = objectMapper.readValue(flowers, new TypeReference<>() {});
+        List<Flower> flowersFromJson = objectMapper.readValue(flowers, new TypeReference<>() {
+        });
 
         assertAll("flowers 1,2,3",
-                () -> assertEquals(flowersFromJson.size(), returnedListSize),
-                () -> assertEquals(flowersFromJson.get(0).getFlower(), "k1"),
-                () -> assertEquals(flowersFromJson.get(1).getFlower(), "k2"),
-                () -> assertEquals(flowersFromJson.get(2).getFlower(), "k3")
+                () -> assertEquals(returnedListSize, flowersFromJson.size()),
+                () -> assertEquals("fuchsia", flowersFromJson.get(0).getName()),
+                () -> assertEquals("geranium", flowersFromJson.get(1).getName()),
+                () -> assertEquals("mallow", flowersFromJson.get(2).getName())
         );
     }
-
 }
