@@ -24,14 +24,21 @@ DELETE FROM flowers WHERE id = 4;
 INSERT INTO flowers (id, name, type) values (1, 'fuchsia', 'fuksja');
 INSERT INTO flowers (id, name, type) values (2, 'geranium', 'pelargonia');
 INSERT INTO flowers (id, name, type) values (3, 'mallow', 'malwa');
+INSERT INTO flowers (id, name, type) values (4, 'Centaurea cyanus', 'Chaber bławatek');
+INSERT INTO flowers (id, name, type) values (5, 'Papaver rhoeas', 'Mak polny');
+INSERT INTO flowers (id, name, type) values (6, 'Calendula officinalis', 'Nagietek lekarski');
 
-INSERT INTO orders (id, consumer) values (1, 'some consumer 1');
-INSERT INTO orders (id, consumer) values (2, 'some consumer 2');
-INSERT INTO orders (id, consumer) values (3, 'some consumer 3');
+INSERT INTO orders (id, consumer) values (1, 'some customer 1');
+INSERT INTO orders (id, consumer) values (2, 'some customer 2');
+INSERT INTO orders (id, consumer) values (3, 'some customer 3');
+INSERT INTO orders (id, consumer) values (4, 'some customer 4');
+INSERT INTO orders (id, consumer) values (5, 'some customer 5');
 
-INSERT INTO items (id, flower_id, quantity) values (1, 1, 10);
-INSERT INTO items (id, flower_id, quantity) values (2, 1, 2);
-INSERT INTO items (id, flower_id, quantity) values (3, 3, 5);
+INSERT INTO items (id, order_id, flower_id, quantity) values (1, 1, 1, 10);
+INSERT INTO items (id, order_id, flower_id, quantity) values (2, 1, 1, 2);
+INSERT INTO items (id, order_id, flower_id, quantity) values (3, 2, 3, 5);
+INSERT INTO items (id, order_id, flower_id, quantity) values (4, 2, 1, 2);
+INSERT INTO items (id, order_id, flower_id, quantity) values (5, 2, 1, 2);
 
 CREATE OR REPLACE function get_name(flower_id bigint)
     returns text
