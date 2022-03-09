@@ -46,7 +46,7 @@ class FlowerControllerTest {
     @SneakyThrows
     void checkInsertedFlowers3() {
         String endpoint = "/flowers";
-        var returnedListSize = 3;
+        var returnedListSize = 6;
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(print())
