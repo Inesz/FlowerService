@@ -85,11 +85,11 @@ class DBTest {
                 "GROUP BY public.flowers.name;";
 
         //--get name of the flower, name of the customer, count current flower item in order
-        String query2 = "SELECT public.flowers.name, orders.consumer, count( public.items.order_id) AS count_in_order " +
-                "FROM public.flowers " +
-                "INNER JOIN public.items ON flowers.id = public.items.flower_id " +
-                "LEFT JOIN orders ON items.order_id = orders.id " +
-                "GROUP BY public.items.order_id,public.flowers.name, orders.consumer;";
+        String query2 = "SELECT f.name, o.consumer, count(i.order_id) AS count_in_order " +
+                "FROM public.flowers f " +
+                "INNER JOIN public.items i ON f.id = i.flower_id " +
+                "LEFT JOIN orders o ON i.order_id = o.id " +
+                "GROUP BY i.order_id, f.name, o.consumer;";
 
         //--get summary quantity of each order
         String query3 = "SELECT public.orders.id, SUM( public.items.quantity)AS flowers_quantity " +
